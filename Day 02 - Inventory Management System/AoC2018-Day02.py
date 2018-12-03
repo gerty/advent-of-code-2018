@@ -16,18 +16,24 @@ checksum = 0
 
 for line in filedata:
     data = line.split()
-    occurancecount = 0
+    twocount = False
+    threecount = False
     for c in data[0]:
-        if data[0].count(c) > occurancecount:
-            occurancecount = data[0].count(c)
-    if occurancecount >= 3:
-        threetimes += 1
-    elif occurancecount >=2:
+        if data[0].count(c) == 2:
+            twocount = True
+        if data[0].count(c) == 3:
+            threecount = True
+    if twocount:
         twotimes += 1
+    if threecount:
+        threetimes += 1
+
+checksum = threetimes * twotimes
+
 print('twotimes')
 print(twotimes)
 print('threetimes')
 print(threetimes)
 print('CHECKSUM')
-print(twotimes*threetimes)
+print(checksum)
 # 4600 is too low
