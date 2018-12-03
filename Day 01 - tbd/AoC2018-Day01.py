@@ -11,7 +11,7 @@ with open('Day01-INPUT.txt', 'r') as f:
 
 tally = 0
 tallies = []
-
+found = False;
 
 for line in filedata:
     data = line.split()
@@ -19,13 +19,15 @@ for line in filedata:
 print(tally)
 
 tally = 0
+while found == 0 :
+    for line in filedata:
+        data = line.split()
+        tally += int(data[0])
+        if tally in tallies:
+            print('Found this one twice: ')
+            print(tally)
+            found = True;
+        tallies.append(tally)
 
-for line in filedata:
-    data = line.split()
-    tally += int(data[0])
-    if tally in tallies:
-        print('Found this one twice: ' + tally)
-    tallies.append(tally)
-    print(tally)
-
-# Here it goes...
+# Ran slowly because of course there are optimization to be had that I didn't do.
+# Also, how do I combine strings and ints again...? welcome back to the learning curve.
