@@ -36,4 +36,24 @@ print('threetimes')
 print(threetimes)
 print('CHECKSUM')
 print(checksum)
-# 4600 is too low
+# 4600 is too low, 4940 is correct!
+
+def OneCharDiffers(a, b):
+    result = -1;
+    pos = 0;
+    for letter in a:
+        if letter != b[pos]:
+            if result == -1:  # if diff was not seen yet
+                result = pos
+            else:
+                return -1  # different char was seen before, exit with error
+        pos += 1
+    return result  # exit with answer or error, depending on whether diff was seen exactly once or not
+
+for line in filedata:
+    for compline in filedata:
+        uncommon = OneCharDiffers(line, compline)  # find out position of character that differs, -1 if none/many
+        if uncommon > 0:
+            print(line[:uncommon]+line[uncommon+1:])
+
+# Winning string is 'wrziyfdmlumeqvaatbiosngkc' with my input
