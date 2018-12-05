@@ -17,23 +17,28 @@ with open('Day 5 puzzle input.txt', 'r') as f:
 answer = 0  # This will be the answer
 print(polymer)
 
+
 def collapse(poly):
-    nextPoly = poly[0]  # Always start with the first element loaded
+    activepoly = poly
     done = False
     while not done:
+        nextpoly = []
+        nextpoly += poly[0]  # Always start with the first element loaded
         done = True
-        for p in range(1,len(poly)):  # start at one more than beginning
-            if poly[p] == str.swapcase(poly[p-1]):  # compare with previous character
-                nextPoly = nextPoly[:-1]  # shave off the end by one
+        for p in range(1,len(activepoly)):  # start at one more than beginning
+            if poly[p] == str.swapcase(activepoly[p-1]):  # compare with previous character
+                nextpoly = nextpoly[:-1]  # shave off the end by one
                 done = False  # you did some change to the string, so you're not done
             else:
-                nextPoly += poly[p]  # in this case, just tack on the character
-        print(len(nextPoly))
-    return nextPoly
+                nextpoly += activepoly[p]  # in this case, just tack on the character
+        print(len(nextpoly))
+        activepoly = nextpoly
+    return activepoly
 
-collapse(polymer)
+polymer = collapse(polymer)
 print(polymer)
 answer = len(polymer)
 print(answer)
 
 # Saw length of nextPoly getting greater each time through. No bueno. Will think about this in the shower.
+# Shower worked, but realistic answer 3508 is now too low.
