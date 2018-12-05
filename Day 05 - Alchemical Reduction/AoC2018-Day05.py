@@ -12,31 +12,26 @@ with open('Day 5 puzzle input.txt', 'r') as f:  # open file for reading into pol
             break
         polymer.append(c)
 
-answer = 0  # This will be the answer
 print(polymer)  # check for realistic input
-
 
 def collapse(poly):  # This function will collapse the entire text string to eliminate all opposite case neighbors
     activepoly = poly  # this loads the polymer string for the first time
     done = False
     while not done:
-        nextpoly = []  # this is our new iteration (but possibly not the last before we leave)
-        nextpoly += poly[0]  # Always start with the first element loaded
+        nextpoly = [activepoly[0]]  # Always start with the first element loaded
         done = True
         for p in range(1, len(activepoly)):  # start at one more than beginning, go until the end
             if activepoly[p] == str.swapcase(activepoly[p-1]):  # compare with previous character
-                nextpoly = nextpoly[:-1]  # shave off the end by one
+                print(activepoly[p-1] + activepoly[p])
+                nextpoly = nextpoly[:-1]  # shave off the end by one if we find a match, and don't add to it
                 done = False  # you did some change to the string, so you're not done
             else:
-                nextpoly += activepoly[p]  # in this case, just tack on the character
+                nextpoly.append(activepoly[p])  # in this case, just tack on the character
         print(len(nextpoly))
         activepoly = nextpoly
     return activepoly
 
-polymer = collapse(polymer)
-print(polymer)
-answer = len(polymer)
-print(answer)
+print(len(collapse(polymer)))
 
 # Saw length of nextPoly getting greater each time through. No bueno. Will think about this in the shower.
 # Shower worked, but realistic answer 3508 is now too low.
