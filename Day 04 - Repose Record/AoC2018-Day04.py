@@ -46,3 +46,5 @@ for record in guardsTable:
 
 print(guardsTable)
 print(sleepRecord)
+
+# Taking a break to tackle Day 5...
