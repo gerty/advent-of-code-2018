@@ -12,27 +12,27 @@ with open('Day 5 puzzle input.txt', 'r') as f:  # open file for reading into pol
             break
         polymer.append(c)
 
+# Now collapse the entire text string to eliminate all opposite case neighbors.
 
-def collapse(poly):  # This function will collapse the entire text string to eliminate all opposite case neighbors
-    activepoly = poly  # this loads the polymer string for the first time
-    done = False
-    while not done:
-        nextpoly = [activepoly[0]]  # Always start with the first element loaded
-        done = True
-        for p in range(1, len(activepoly)):  # start at one more than beginning, go until the end
-            if activepoly[p] == str.swapcase(activepoly[p-1]):  # compare with previous character
-                nextpoly = nextpoly[:-1]  # shave off the end by one if we find a match, and don't add to it
-                done = False  # you did some change to the string, so you're not done
-            else:
-                nextpoly.append(activepoly[p])  # in this case, just tack on the unmatching character
-        activepoly = nextpoly
-    return activepoly
+result = [polymer[0]]  # Always start with the first element loaded into the result
+print('result=')
+print(len(result))
+index = 1  # start evaluating at second location
+while index < len(polymer):  # go until the end
+    result.append(polymer[index])  # tack on the next character
+    print('Result=')
+    print(len(result))
+    r1 = result[-2]
+    r2 = str.swapcase(result[-1])
+    if r1 == r2:  # compare with last character of result
+        result = result[:-2]  # shave off the end (WHY is there a "IndexError: list index out of range" here???)
+    index += 1  # increment polymer to the next char of interest
 
-print(len(collapse(polymer)))
+print(len(result))
 
-# Saw length of nextPoly getting greater each time through. No bueno. Will think about this in the shower.
 # Shower worked, but realistic answer 3508 is now too low.
 # Next day, 11816 is too high, after I found an obvious bug. Let's see if I can find the not-so-obvious bugs.
 # 11815 is too high
 # 11744 is incorrect (tried ranging only to len(activepoly)-1)
+# Looking at the problem again, I think my issue is that I'm making multiple passes, instead of one thorough one.
 
