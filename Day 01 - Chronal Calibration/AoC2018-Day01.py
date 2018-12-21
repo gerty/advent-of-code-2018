@@ -19,7 +19,7 @@ for line in filedata:
 print(tally)
 
 tally = 0
-while found == 0 :
+while found == 0:
     for line in filedata:
         data = line.split()
         tally += int(data[0])
