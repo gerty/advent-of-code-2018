@@ -52,3 +52,5 @@ for guard,hour in sleepRecord.items():  # cycle through records and add sleep ti
 
 #  Correct answer for part 1 was 72925
 
+#  Most often asleep during a single minute was guard 1489 at the 33rd min, for 18 times.
+#  Answer for part 2: 1489 * 33 = 49137
