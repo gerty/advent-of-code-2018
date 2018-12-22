@@ -18,33 +18,29 @@ wakesMin = 0
 
 guardRecord = []  # one record of a guard's sleeping activities
 guardsTable = []  # entire array of multiple activities
-sleepRecord = {}  # lookup table of the combined sleeping record of each guard
 for line in filedata:
     parsed = line.split()
-    print(parsed)
-    if len(parsed) == 6:  # line is marking a guard beginning his shift
+    if len(parsed) == 6:  # line with 6 elements is marking a guard beginning his shift
         guardNum = int(parsed[3][1:])
-    elif parsed[2] == 'falls':
+    elif parsed[2] == 'falls':  # line with "falls" as third element is when guard falls asleep
         fallsMin = int(parsed[1][3:5])
-    elif parsed[2] == 'wakes':
-        wakesMin = int(parsed[1][3:5])
-
+    elif parsed[2] == 'wakes':  # line with "wakes" as third element is when guard wakes up
+        wakesMin = int(parsed[1][3:5])  # only need to record an entry when an 'wake' event occurs
         guardRecord = [guardNum, fallsMin, wakesMin, wakesMin-fallsMin]
         guardsTable.append(guardRecord)
 
-emptyRecord = [0 for item in range(60)]
+print(guardsTable)
 
-hour = emptyRecord
+sleepRecord = {}  # lookup table of the combined sleeping record of each guard
+
 for record in guardsTable:
     if record[0] not in sleepRecord:
-        sleepRecord[record[0]] = emptyRecord
-    hour = sleepRecord[record[0]]
+        sleepRecord[record[0]] = [0 for x in range(60)]  # init with zeros for every minute if guard is new
 
-    for thisMinute in range(record[1], record[2]):
-        hour[thisMinute] += 1
-    sleepRecord[record[0]] = hour
+    hour = sleepRecord[record[0]]  # copy the existing sleep record of said guard (zeros if just created)
 
-print(guardsTable)
+    for thisMinute in range(record[1], record[2]):  # loop through the awake hours (may need +1 here?)
+        hour[thisMinute] += 1  # add an awake minute
+    sleepRecord[record[0]] = hour  # copy back to the master sleepRecord
+
 print(sleepRecord)
-
-# Taking a break to tackle Day 5...
