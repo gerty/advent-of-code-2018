@@ -35,12 +35,20 @@ sleepRecord = {}  # lookup table of the combined sleeping record of each guard
 
 for record in guardsTable:
     if record[0] not in sleepRecord:
-        sleepRecord[record[0]] = [0 for x in range(60)]  # init with zeros for every minute if guard is new
+        sleepRecord[record[0]] = [0 for x in range(61)]  # init with zeros for every minute if guard is new
 
     hour = sleepRecord[record[0]]  # copy the existing sleep record of said guard (zeros if just created)
 
     for thisMinute in range(record[1], record[2]):  # loop through the awake hours (may need +1 here?)
         hour[thisMinute] += 1  # add an awake minute
+    hour[60] += record[3]  # use the 61st slot to tally total sleep minutes
     sleepRecord[record[0]] = hour  # copy back to the master sleepRecord
 
 print(sleepRecord)
+
+for guard,hour in sleepRecord.items():  # cycle through records and add sleep time
+    print(str(guard) + ' --- ' + str(hour[60]))
+    print(hour)
+
+#  Correct answer for part 1 was 72925
+
