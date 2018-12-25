@@ -4,7 +4,7 @@
 # Input files in same directory
 # My input: in file Day 7 puzzle input.txt
 
-with open('Day 7 puzzle test input.txt', 'r') as f:
+with open('Day 7 puzzle input.txt', 'r') as f:
     filedata = f.readlines()
 
 allrules = []  # contains all the rules in [complete this step first, before this step] format
@@ -43,4 +43,4 @@ while steps:  # if there are still steps to be done
 print(answer)
 
 
-# So close....
+# It works. Need to link the list and the dictionary somehow to make it more Pythonic, but it works.
