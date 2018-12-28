@@ -4,7 +4,7 @@
 # Input files in same directory
 # My input: in file Day 25 puzzle input.txt
 
-with open('Day 25 puzzle test input.txt', 'r') as f:
+with open('Day 25 puzzle input.txt', 'r') as f:
     filedata = f.readlines()
 
 allstars = []
@@ -52,7 +52,7 @@ while allstars:  # then repeat this process until allstars is empty
         # at this point we're at the beginning of a new constellation
 
     for basestar in allstars:  # cycle through all of the stars to find others in this constellation
-        print('Comparing {} to {} for M-distance.'.format(basestar, constellation[const_index]))
+        # print('Comparing {} to {} for M-distance.'.format(basestar, constellation[const_index]))
         if get_manhattan_distance(basestar, constellation[const_index]) <= 3:
             constellation.append(basestar.copy())  # tack a copy at end of the constellation
             print('Added {} to our constellation! Now: {})'.format(basestar, constellation))
@@ -70,7 +70,10 @@ while allstars:  # then repeat this process until allstars is empty
         const_index += 1
         print('More stars added. Now at index: {}.'.format(const_index, len(constellation)))
 
-print('Constellation complete: {}'.format(constellation))
-constellation_collection.append(constellation.copy())
+if constellation:
+    print('Constellation complete: {}'.format(constellation))
+    constellation_collection.append(constellation.copy())
 
 print("Total number of constellations = {}".format(len(constellation_collection)))
+
+# Returned 324 constellations
